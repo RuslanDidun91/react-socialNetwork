@@ -5,7 +5,6 @@ import {sendMessage, startMessagesListening, stopMessagesListening} from "../../
 import {AppStateType} from "../../redux/redux-store";
 import {ChatMessageAPIType} from "../../api/chat-api";
 
-
 const ChatPage: React.FC = () => {
     return <div>
         <Chat/>
@@ -15,7 +14,6 @@ const ChatPage: React.FC = () => {
 const Chat: React.FC = () => {
 
     const dispatch = useDispatch()
-
     const status = useSelector((state: AppStateType) => state.chat.status)
 
     useEffect(() => {
@@ -24,7 +22,6 @@ const Chat: React.FC = () => {
             dispatch(stopMessagesListening())
         }
     }, [])
-
 
     return <div>
         {status === 'error' && <div>Error</div>}
@@ -35,13 +32,11 @@ const Chat: React.FC = () => {
     </div>
 }
 
-
 const Messages: React.FC = () => {
     const messages = useSelector((state: AppStateType) => state.chat.messages)
     const messagesAnchorRef = useRef<HTMLDivElement>(null)
     //auto scroll
     const [isAutoScroll, setIsAutoScroll] = useState(true)
-
     const scrollHandler = (e: React.UIEvent<HTMLDivElement, UIEvent>) => {
         const element = e.currentTarget;
         if (Math.abs((element.scrollHeight - element.scrollTop) - element.clientHeight) < 300) {
@@ -73,13 +68,11 @@ const Message: React.FC<{ message: ChatMessageAPIType }> = React.memo(({message}
     </div>
 })
 
-
 const MessageForm: React.FC<{}> = () => {
     //дисэйблим кнопку до подключения вебсокета
     const [message, setMessage] = useState('')
     const dispatch = useDispatch()
     const status = useSelector((state: AppStateType) => state.chat.status)
-
     const sendMessageHandler = () => {
         if (!message) {
             return
